@@ -1,0 +1,197 @@
+﻿@model Flower
+@{
+    ViewData["Title"] = "Details";
+    List<Flower> related = ViewBag.RelatedFlowers;
+}
+
+<div id="productListPage">
+    <section id="entrance">
+        <div class="container">
+            <div class="row">
+                <div class="desc">
+                    <h3>Product List</h3>
+                    <p>Where flowers are our inspiration</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="productgallery">
+        <div class="productGallery">
+            <div class="container">
+                <div class="row">
+                    <div class="images col-lg-6 col-12">
+                        <div class="little col-lg-2 col-md-2 col-sm-6">
+                            @foreach (FlowerImage flowerImage in Model.FlowerImages.Where(i=>i.isMain==false))
+                            {
+                                <img class="img" src="~/assets/images/@flowerImage.Image" alt="">
+                            }
+                        </div>
+                        <div class="mainimage col-lg-10 col-md-10 col-sm-12">
+                            <img class="mimg" src="~/assets/images/@Model.FlowerImages.FirstOrDefault(i=>i.isMain==true).Image" alt="">
+                        </div>
+                    </div>
+                    <div class="buying col-lg-6 col-12">
+                        <div class="content">
+                            <h3 class="heading">@Model.Name</h3>
+                            <p class="price">$@Model.Price</p>
+                            <p class="info">
+                             @Model.Description   
+                            </p>
+                            <div class="addtocart">
+                                <div class="test">
+                                    <span>Quantity</span>
+                                    <button class="btn minus-btn disabled" type="button">
+                                         <i class="fas fa-caret-left"></i>
+                                    </button>
+                                    <input class="qnt" type="text" id="quantity" value="0">
+                                    <button class="btn plus-btn" type="button">
+                                        <i class="fas fa-caret-right"></i>
+                                    </button>
+                                </div>
+                                <div class="submit">
+                                    <input class="sbmt" type="submit" value="ADD TO CART">
+                                </div>
+                            </div>
+                            <div class="unknown">
+                                <p>SKU: @Model.SKUCode</p>
+                                <p>Categories:
+                                @foreach (FlowerCategory fcategory in Model.FlowerCategories)
+                                    {
+                                    @fcategory.Category.Name
+                                    }
+                                </p>
+                                    <p>Tags:
+                                @foreach (FlowerTag ftag in Model.FlowerTags)
+                                    {
+                                    @ftag.Tag.Name
+                                    }
+                                     </p>
+                                <p style="color:@(Model.InStock ? "green" : "red")">@(Model.InStock ? "Avaliable" : "Not avaliable")</p>
+                                    </div>
+                                </div>  
+                            </div>    
+                        </div>  
+                    </div>    
+                </div>
+            </section>
+            <section id="prdetails">    
+                <div class="container">
+            <div class="row">
+                <div class="categories">
+                    <ul>
+                        <div class="category active2" id="description">
+                        <li>DESCRIPTION</li>
+                </div>
+                <div class="category" id="additionalinfo">
+                    <li>ADDITIONAL INFORMATION</li>
+                </div>
+                <div class="category" id="rev">
+                    <li>REVIEWS (2)</li>
+                </div>
+                </ul>
+            </div>
+        </div>
+</div>
+<div class="second">
+    <div class="container ">
+        <div class="row">
+            <div class="tab">
+
+                <div class="all description">
+                    <h4>The power of flowers</h4>
+                    <p>
+                       @Model.Description
+                    </p>
+                </div>
+
+                <div class="all additionalinfo">
+                    <p>Weight: <span> 1 kg</span></p>
+                    <p>Dimensions: <span>@Model.Dimension</span></p>
+                </div>
+
+                <div class="all rev">
+                    <h4>Reviews</h4>
+                    <div class="workers">
+                        <div class="img">
+                            <img src="~/assets/images/h3-team-img-3.png" alt="">
+                        </div>
+                        <div class="revcontent">
+                            <p class="name">JOSHUA GARCIA <span> 27.04.2018</span></p>
+                            <p class="info">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+                                commodo
+                                ligula eget
+                                dolor. Aenean massa. Cum sociis Theme natoque penatibus et magnis dis
+                                parturient
+                                montes,
+                                nascetur ridiculus mus.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="workers">
+                        <div class="img">
+                            <img src="~/assets/images/h3-team-img-2.png" alt="">
+                        </div>
+                        <div class="revcontent">
+                            <p class="name">JOAN STANLEY <span> 27.04.2018</span></p>
+                            <p class="info">
+                                Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus,
+                                sem
+                                quam semper
+                                libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel,
+                                luctus
+                                pulvinar,
+                                hendrerit
+                            </p>
+                        </div>
+                    </div>
+                    <h4>Add a review</h4>
+                    <div class="info">
+                        <p>
+                            Your email address will not be published. Required fields are marked *
+                        </p>
+                    </div>
+                    <form action="">
+                        <label for="reviewArea">Your review *</label><br>
+                        <textarea class="form-control" name="" id="reviewArea" cols="30" rows="7"
+                                  required></textarea><br>
+                        <label for="Name">Name *</label><br>
+                        <input type="text" id="Name" class="form-control" placeholder="Enter name"
+                               required><br>
+                        <label for="Email">Email *</label><br>
+                        <input type="email" id="Email" class="form-control" placeholder="Enter email"
+                               required><br>
+                        <input type="checkbox" id="cehck" class="form-check-input"><br>
+                        <label for="check">
+                            Save my name, email, and website in this browser for the next
+                            time I
+                            comment.
+                        </label><br>
+                        <input type="submit" value="SUBMIT">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+        </section>
+<section id="relproducts">
+    <div class="container">
+        <div class="row">
+            <h4>RELATED PRODUCTS</h4>
+            <div class="products">
+                <div class="prduct col-lg-3 col-md-4 col-sm-6">
+                    @await Html.PartialAsync("_FlowerPartialView", related)
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+    </div>
+@section Scripts{
+<script src="~/assets/JS/plist.js">
+</script>
+ }
